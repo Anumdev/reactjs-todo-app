@@ -1,0 +1,142 @@
+[
+	{
+		"id": 202305241001,
+		"title": "Research Market Trends",
+		"description": "Conduct research on current market trends and competitors.",
+		"status": "ToDo",
+		"date": "2023-05-24"
+	},
+	{
+		"id": 202305241002,
+		"title": "Develop Database Schema",
+		"description": "Design and create the database schema for the application.",
+		"status": "ToDo",
+		"date": "2023-05-24"
+	},
+	{
+		"id": 202305241003,
+		"title": "Write API Documentation",
+		"description": "Document the APIs and endpoints for the backend system.",
+		"status": "ToDo",
+		"date": "2023-05-24"
+	},
+	{
+		"id": 202305241004,
+		"title": "Conduct User Research",
+		"description": "Gather user feedback and conduct surveys to understand user needs.",
+		"status": "ToDo",
+		"date": "2023-05-24"
+	},
+	{
+		"id": 202305241005,
+		"title": "Create Test Cases",
+		"description": "Define and document test cases for the application's functionality.",
+		"status": "ToDo",
+		"date": "2023-05-24"
+	},
+	{
+		"id": 202305241006,
+		"title": "Optimize Database Queries",
+		"description": "Optimize slow-performing database queries for improved performance.",
+		"status": "ToDo",
+		"date": "2023-05-24"
+	},
+	{
+		"id": 202305241007,
+		"title": "Implement Security Measures",
+		"description": "Enhance application security by implementing necessary measures.",
+		"status": "Done",
+		"date": "2023-05-24"
+	},
+	{
+		"id": 202305241008,
+		"title": "Create User Registration Flow",
+		"description": "Design and implement the user registration process for the application.",
+		"status": "Done",
+		"date": "2023-05-24"
+	},
+	{
+		"id": 202305241009,
+		"title": "Perform Load Testing",
+		"description": "Simulate high user traffic to test application performance and scalability.",
+		"status": "ToDo",
+		"date": "2023-05-24"
+	},
+	{
+		"id": 202305241010,
+		"title": "Integrate Payment Gateway",
+		"description": "Integrate a payment gateway for online transactions in the application.",
+		"status": "ToDo",
+		"date": "2023-05-24"
+	},
+	{
+		"id": 202305241011,
+		"title": "Create User Manual",
+		"description": "Write a comprehensive user manual to guide users on application usage.",
+		"status": "ToDo",
+		"date": "2023-05-24"
+	},
+	{
+		"id": 202305241012,
+		"title": "Prepare Deployment Plan",
+		"description": "Plan the deployment process and necessary steps for the application.",
+		"status": "Done",
+		"date": "2023-05-24"
+	},
+	{
+		"id": 202305241013,
+		"title": "Conduct Performance Testing",
+		"description": "Test the application under various load conditions to evaluate performance.",
+		"status": "ToDo",
+		"date": "2023-05-24"
+	},
+	{
+		"id": 202305241014,
+		"title": "Implement Email Notifications",
+		"description": "Set up email notifications for user actions and system events.",
+		"status": "ToDo",
+		"date": "2023-05-24"
+	},
+	{
+		"id": 202305241015,
+		"title": "Design Database Backup Strategy",
+		"description": "Define a backup strategy for the application's database to ensure data safety.",
+		"status": "Done",
+		"date": "2023-05-24"
+	},
+	{
+		"id": 202305241016,
+		"title": "Create User Feedback Form",
+		"description": "Design and implement a feedback form for users to provide feedback.",
+		"status": "ToDo",
+		"date": "2023-05-24"
+	},
+	{
+		"id": 202305241017,
+		"title": "Implement Social Media Sharing",
+		"description": "Integrate social media sharing functionality into the application.",
+		"status": "ToDo",
+		"date": "2023-05-24"
+	},
+	{
+		"id": 202305241018,
+		"title": "Perform Cross-Browser Testing",
+		"description": "Test the application's compatibility across different web browsers.",
+		"status": "Done",
+		"date": "2023-05-24"
+	},
+	{
+		"id": 202305241019,
+		"title": "Create Data Visualization Dashboard",
+		"description": "Design and develop a dashboard to visualize application data.",
+		"status": "ToDo",
+		"date": "2023-05-24"
+	},
+	{
+		"id": 202305241020,
+		"title": "Conduct Accessibility Audit",
+		"description": "Ensure the application meets accessibility standards through an audit.",
+		"status": "Done",
+		"date": "2023-05-24"
+	}
+]
