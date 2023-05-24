@@ -10,9 +10,12 @@ import Form from 'react-bootstrap/Form'
 import Modal from 'react-bootstrap/Modal'
 import Navbar from 'react-bootstrap/Navbar'
 import Row from 'react-bootstrap/Row'
+import { FaEdit, FaTrash } from 'react-icons/fa'
 import { IoIosAdd } from 'react-icons/io'
 import { connect } from 'react-redux'
 import { TodoStatus } from '../Constants'
+import DeleteConfirmation from './modals/DeleteConfirmation'
+
 import {
 	addTodo,
 	deleteTodo,
@@ -21,7 +24,7 @@ import {
 } from '../actions/TodoActions'
 
 const TodoList = (props) => {
-	
+
 	const [sortedTasks, setSortedTasks] = useState([])
 
 	const [newTask, setNewTask] = useState({
@@ -33,6 +36,8 @@ const TodoList = (props) => {
 	const [error, setError] = useState('')
 	const [show, setShow] = useState(false)
 	const [update, setUpdate] = useState(false)
+	const [modalShow, setModalShow] = useState(false)
+	const [idToDelete, setIdToDelete] = useState('')
 
 	const handleClose = () => {
 		setError('')
@@ -90,7 +95,6 @@ const TodoList = (props) => {
 				status: newTask.status,
 				date: new Date().toLocaleString(),
 			})
-			
 		} else {
 			const updatedValues = {
 				title: newTask.title,
@@ -107,29 +111,48 @@ const TodoList = (props) => {
 				}
 				return task
 			})
-			const taskIndex = updatedTasks.findIndex((task) => task.id === newTask.id);
-				if (taskIndex !== -1) {
-				const updatedTask = updatedTasks[taskIndex];
-				updatedTasks.splice(taskIndex, 1);
-
-				if (updatedTask.status === 'Done') {
-					updatedTasks.push(updatedTask);
-				}
-
-				if (updatedTask.status === 'ToDo') {
-					updatedTasks.unshift(updatedTask);
-				}
-			}
 			props.updateTodo(updatedTasks)
-			console.log('props.todos', props.todos)
 		}
 		handleClose()
 	}
 
-	const handleDelete = (id) => {
-		props.deleteTodo(id)
+	const handleDelete = () => {
+		if (idToDelete) {
+			props.deleteTodo(idToDelete)
+		}
+		setModalShow(false)
 	}
 
+	const updateTasks = (updatedTasks, taskId) => {
+		const taskIndex = updatedTasks.findIndex((task) => task.id === taskId);
+		if (taskIndex !== -1) {
+			const updatedTask = updatedTasks[taskIndex];
+			updatedTasks.splice(taskIndex, 1);
+
+			if (updatedTask.status === 'Done') {
+				updatedTasks.push(updatedTask);
+			}
+
+			if (updatedTask.status === 'ToDo') {
+				updatedTasks.unshift(updatedTask);
+			}
+		}
+		return updatedTasks
+	}
+
+	const handleUpdateTaskStatus = (e, taskId) => {
+		const { checked } = e.target
+		const updatedTasks = sortedTasks.map((task) => {
+			if (task.id === taskId) {
+				return {
+					...task,
+					status: checked ? 'Done' : 'ToDo',
+				}
+			}
+			return task
+		})
+		props.updateTodo(updateTasks(updatedTasks, taskId))
+	}
 	return (
 		<div>
 			<Container>
@@ -204,27 +227,67 @@ const TodoList = (props) => {
 							{sortedTasks?.map((task, index) => (
 								<div key={index} className="p-2">
 									<Card
-										className={`border-top border-5  shadow ${task.status === 'Done'
-											? 'task-done border-secondary'
-											: 'border-warning'
+										className={`border-start px-2 border-5  shadow ${task.status === 'Done'
+												? 'task-done border-secondary'
+												: 'border-info'
 											}`}
-										onClick={() => {
-											handleShow(task.id)
-										}}
 									>
-										<Card.Body className="p-1">
-											<Card.Title
-												className={`border-bottom border-light border-3  ${task.status === 'Done' ? 'task-done' : ''
-													}`}
-											>
-												{task.title}
-											</Card.Title>
-											<Card.Text className="small border-bottom border-light border-3">
-												{task.description.substring(0, 500)}
-											</Card.Text>
-											<Card.Text className="small text-muted">
-												{task.date}
-											</Card.Text>
+										<Card.Body className="p-1 d-flex justify-content-between align-items-center">
+											<div className="flex-grow-1 pe-5">
+												<Card.Title
+													className={`border-bottom border-light border-3 py-2  ${task.status === 'Done' ? 'task-done' : ''
+														}`}
+												>
+													{task.title}
+												</Card.Title>
+												<Card.Text className="small border-bottom border-light border-3">
+													{task.description.substring(0, 500)}
+												</Card.Text>
+												<Card.Text className="small text-muted">
+													{task.date}
+												</Card.Text>
+											</div>
+											<div>
+												<Button
+													variant="warning"
+													className={`mb-2 ${task.status === 'Done' ? 'd-none' : ''
+														}`}
+													onClick={() => {
+														handleShow(task.id)
+													}}
+												>
+													<FaEdit />
+												</Button>
+												<div className={`check-container ${task.status === 'Done' ? 'd-none' : ''
+													}`}>
+													<label
+														className="checkbox-label"
+													>
+														<input
+															type="checkbox"
+															checked={task.status === 'Done'}
+															name={task.status}
+															onChange={(e) => handleUpdateTaskStatus(e, task.id)}
+															id={`reverse-checkbox-${task.id}`}
+														/>
+														<span className="check"></span>
+													</label>
+												</div>
+												<Button
+													variant="danger"
+													className={`mb-2 ${task.status === 'ToDo' ? 'd-none' : ''
+														}`}
+													onClick={
+														() => {
+															setModalShow(true)
+															setIdToDelete(task.id)
+														}
+													}
+												>
+													<FaTrash />
+												</Button>
+											</div>
+
 										</Card.Body>
 									</Card>
 								</div>
@@ -233,6 +296,11 @@ const TodoList = (props) => {
 					</Col>
 				</Row>
 			</Container>
+			<DeleteConfirmation
+				show={modalShow}
+				onHide={() => setModalShow(false)}
+				onDelete={handleDelete}
+			/>
 		</div>
 	)
 }
